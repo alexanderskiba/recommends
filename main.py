@@ -9,4 +9,5 @@ class Handler:
         self.probability = probability
 
     def process(self):
-        """основной метод для обработки файла"""
+        """основной метод для обработки файла """
+
