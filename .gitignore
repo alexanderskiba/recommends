@@ -119,6 +119,7 @@ dmypy.json
 
 # Targer file
 recommends.csv
+rec.csv
 
 
 .idea
