@@ -13,6 +13,6 @@ class Handler:
             return self.result_list
         else: # если задана требуемая вероятность, бежим по списку, смотрим на значение вероятность, если совпало, добавляем лист
             for tup in data[self.sku]:
-                if self.probability == float(tup[1]):
+                if float(tup[1]) >= self.probability:
                     self.result_list.append(tup[0])
             return self.result_list
