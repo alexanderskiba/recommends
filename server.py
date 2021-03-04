@@ -6,6 +6,7 @@ from logic import RecFinder
 from errors import ErrorItemNotFound
 
 FILE = "recommends.csv"
+PORT = 8080
 finder = RecFinder(FILE)
 
 
@@ -25,12 +26,12 @@ class Server(BaseHTTPRequestHandler):
             message = json.loads(self.rfile.read(length))
         except json.decoder.JSONDecodeError:
             message = json.dumps({'status': False, 'error': 'Bad request'}).encode('utf-8')
-            self.response_to_client(code=423 , message=message)
+            self.response_to_client(code=400, message=message)
 
         err = validator(data=message)
         if err:
             message = json.dumps({'status': False, 'error': err}).encode('utf-8')
-            self.response_to_client(code=423, message=message)
+            self.response_to_client(code=400, message=message)
         try:
             self.response_to_client(code=200, message=self.message_handler(message))
         except ErrorItemNotFound:
@@ -56,7 +57,7 @@ class Server(BaseHTTPRequestHandler):
 
 
 
-def run(server_class=HTTPServer, handler_class=Server, port=8080):
+def run(server_class=HTTPServer, handler_class=Server, port=PORT):
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)
 
